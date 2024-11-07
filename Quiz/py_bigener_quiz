@@ -1,0 +1,26 @@
+"""1)What will be the output of the following code?
+a = 10
+b = a
+a = 5
+print(b)#10
+
+2)What does the  // operator do in Python?
+AFloor division
+BExponentiation
+CModulus
+DAddition
+The // operator in Python performs floor division.
+In floor division, the result is rounded down to the nearest integer. For example, 10 // 3 evaluates to 3 because 10 divided by 3 is 3.333..., and the // operator truncates the decimal part to 0.
+So, the correct answer is:
+AFloor
+
+What is the scope of a variable in Python?
+AThe region of the program where the variable can be accessed.
+BThe type of data that the variable can store.
+CThe value assigned to the variable.
+DThe location in memory where the variable is stored.
+The scope of a variable in Python refers to the region of the program where the variable can be accessed.
+
+So, the correct answer is:
+AThe region of the program where the variable can be accessed.
+"""

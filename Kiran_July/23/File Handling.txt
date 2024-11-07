@@ -1,0 +1,270 @@
+File Handling
+===========================================================================================
+
+--As the part of programming requirement . we have to store our data permanently for future 
+purpose . for this requirement we should go for files
+
+--files are very common permanent storage areas to store our data
+
+Types of Files:
+
+1.Text of Files:
+usually we can use text files to store character data
+e.g abc.txt
+
+2.Binary Files:
+usually we can use binary files to store binary data like images ,Video Files etc
+
+The Allowed modes in python are
+r---open an existing file for read operation
+w---write operation
+a----open an existing file for append operation
+r+ ---to read and write data into file
+w+ ---to write and read data, it will override existing data
+a+ ----To append and read data from the file
+x -- to open a file in exclusive mode
+
+
+Note: All the above modes are applicable for text files. if the above modes suffixed with 'b' then these represents for binary files
+
+e.g: rb,wb,ab,r+b,w+b,a+b,xb
+
+==========================================================================
+Opening a file:
+-----------------------------------------------------------------------------
+f=open("abc.txt","w")
+
+========================================================================================
+closing a file:
+-----------------------------------------------------------------------------------------
+after completing our operation on the file . it is highly recommended to close the file
+
+f.close()
+
+
+
+==================================================================================
+various properties of file object:
+-----------------------------------------------------------------
+1. name:
+2.mode:
+3.closed:
+4.readable:
+5.writabIe:
+
+f=open("test2.txt",’w’)
+print('filename:',f.name)
+print('file mode',f.mode)
+print('is file readable', f.readable())
+print('is file writable',f.writable())
+print('is file closed',f.closed)
+
+====================================================================
+writing data to text file
+-if file is present then overriding given content
+-if file not present then create file and writing given content
+
+# if file present:
+f=open("test2.txt",'w')
+f.write('welcome')
+f.write('to my india')
+f.seek(5)
+
+initially
+test2.txt
+oh darling yeh hai india
+
+after writing
+test2.py
+welcome to my india
+
+-------------------------------------------
+# if text file not present it will
+crate new file
+f=open("test3.txt",'w')
+f.write('divya')
+f.write('ganesh')
+f.seek(0)
+
+output:
+test3.txt
+divyaganesh
+
+==============================================================
+We can write character data to the text files by using following methods
+write(str)
+writelines (list of lines)
+
+1) fp=open('text1.txt','w')
+   fp.write("india is my country all Indians are my borther and sisters")
+
+2) Writelines:
+f=open("abcd.txt",'w')
+list=["sunny\n","bunny\n","vinny\n","chinny"]
+f.writelines(list)
+f.close()
+
+============================================================================
+'a' mode (append):
+--if file present then add data
+--if file not present then create file then add data
+
+
+f=open('text1234.txt','a')
+f.write("hi nilesh")
+f.close()
+
+text1234
+hi nilesh
+
+f=open('text1234.txt','a')
+f.write("welcome")
+f.close()
+
+text1234
+hi nilesh welcome
+
+======================================================================
+Reading character data from text files:
+
+read()--To read total data from the file
+read(n)--to read 'n' characters from the file
+readline()--to read only one line
+readlines()--to read all lines into a list
+
+f=open("abc.txt","r")
+data=f.read()
+print(data)
+f.close()
+
+to read only first 10 characters:
+f=open("abc.txt","r")
+data=f.read(10)
+print(data)
+f.close()
+
+to read data line by line
+to read only first 10 characters:
+f=open("abc.txt","r")
+line1=f.readline()
+print(line1)
+f.close()
+
+to read all lines into text
+f=open("abc.txt",'r')
+lines=f.readlines()
+
+for line in lines:
+    print(line,end="")
+f.close()
+
+==========================================================
+with open
+----------------------------------------------------------
+--in normal open we need to close file manually 
+--in with open we need to close file manually it will get autoclosed
+
+#withopen('text12345.txt','w') as f:
+         f.write('hi')
+         print(f.closed)#parameter for checking file open or closed
+print(f.closed)
+
+===========================================================
+The seek() and tell() methods:
+tell():
+we can use tell() method to return current position of the cursor(file pointer) from beginning of the file
+
+f=open("abc.txt",'r')
+print(f.tell())
+print(f.read(2))
+print(f.tell())
+print(f.read())
+print(f.tell())
+
+======================================================================
+seek():
+we can use seek() method to move cursor(file pointer) to specified location
+[can you please seek cursor to at particular location]
+
+syntax:
+f.seek(offset,fromwhere)
+offset represents the number of positions
+
+data="all students are Stupids"
+f=open("abc.txt","r+")as f:
+   f.write(data)
+
+with open("abc.txt","r+") as f:
+text=f.read()
+print(text)
+print(f.tell())
+f.seek(17)
+print(f.tell())
+f.write("Gems!!!)
+f.seek(0)
+text=f.read()
+print("data after modification")
+print("text")
+=================================================================
+Handling Binary Data:
+------------------------------------------------------------------
+it is very common requirement to read or write binary data like images, video, files, 
+audio files etc
+
+modes in binary files:
+rb--read binary
+wb--write binary
+ab--append binary
+
+========================================================
+opening image file:
+
+with open("flower.jpeg","rb")as f:
+data=f.read()
+
+write a new image file?
+f2=open("newpic.jpeg","wb")
+f2.write(bytes)
+print(newpic.jpeg)
+============================================================
+csv file handling
+--------------------------------------------------
+csv--comma separated value
+--as the part of programming . it is very common requirement to write and read data
+wrt csv file
+--python provides csv module to handle csv files etc
+--purpose data dump,data store in large amount
+--realtime max data we will get in csv
+=======================================
+creating csv:
+
+import csv
+with open("Mycsv2.csv",'w',newline='') as f:
+    w=csv.writer(f)
+    w.writerow(['name','age','address'])
+    w.writerow(['nilesh','32','pune'])
+    w.writerow(['ajit','33','mumbai'])
+
+#Reading Data From csv file
+import csv
+with open('Mycsv2.csv') as f:
+    r=csv.reader(f)
+    data=list(r)
+    print(data)
+
+with open("Mycsv2.csv") as fp:
+    r=csv.reader(fp)
+    d=list(r)
+    for i in d:
+        for k in i:
+            print(k,end=',')
+        print()
+
+================================================
+
+
+
+
+
+
+
