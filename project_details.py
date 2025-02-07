@@ -1,12 +1,11 @@
 ems_view
 ### **1. Imports and Setup**
-from django.http import HttpResponse  # HttpResponse → Used to return a simple HTTP response (like plain text or HTML)                                        .# type: ignore 
-from django.shortcuts import render # render → Renders an HTML template.                                                                                       # type: ignore 
-from rest_framework.response import Response # Response from rest_framework→ A DRF class that formats responses automatically in JSON.                         # type: ignore 
-from rest_framework.decorators import api_view # @api_view → A decorator that specifies which HTTP methods are allowed for a function.                         # type: ignore 
-from EMSapp.models import Admin, Question, Result, Users # Importing models which represent database tables.                                                   # type: ignore 
-from EMSapp.serializers import QuestionSerilizer, ResultSerilizers, UsersSerilizers # Importing serializers (QuestionSerilizer, ResultSerilizers, UsersSerilizers) which convert model instances into JSON and vice versa.# type: ignore 
-
+from django.http import HttpResponse  # HttpResponse → Used to return a simple HTTP response (like plain text or HTML
+from django.shortcuts import render # render → Renders an HTML template.                                                                         
+from rest_framework.response import Response # Response from rest_framework→ A DRF class that formats responses automatically in JSON
+from rest_framework.decorators import api_view # @api_view → A decorator that specifies which HTTP methods are allowed for a function.      
+from EMSapp.models import Admin, Question, Result, Users # Importing models which represent database tables.                                                   
+from EMSapp.serializers import QuestionSerilizer, ResultSerilizers, UsersSerilizers # Importing serializers (QuestionSerilizer, ResultSerilizers, UsersSerilizers) which convert model instances into JSON and vice versa.#
 ### **2. Simple View for Rendering HTML**
 def hello(request): # This function returns an input.html file.
     #return HttpResponse("Hello World") # it would return a plain text response.
