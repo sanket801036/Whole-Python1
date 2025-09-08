@@ -162,36 +162,14 @@ l=[1, 2, 3, 4, 5]
 l.reverse()
 print(l)  # Output: [5, 4, 3, 2, 1]
 
-#This returns an iterator that accesses the given sequence in the reverse order.
-l= [1, 2, 3, 4, 5]
-r = list(reversed(l))
-print(r)  # Output: [5, 4, 3, 2, 1]
 
+original_list = [1, 2, 3, 4, 5]
+reversed_list = []
 
-l=[1, 2, 3, 4, 5]
-r=[]
-for i in l[::-1]:
-    r.append(i)
-print(r)  # Output: [5, 4, 3, 2, 1]
-
-l = [1, 2, 3, 4, 5]
-r = [l[i] for i in range(len(l)-1, -1, -1)]
-print(r)  # Output: [5, 4, 3, 2, 1]
-
-
-my_list = [1, 2, 3, 4, 5]
-start = 0
-end = len(my_list) - 1
-
-while start < end:
-    # Swap the elements
-    my_list[start], my_list[end] = my_list[end], my_list[start]
+for element in original_list:
+    reversed_list = [element] + reversed_list
     
-    # Move the pointers
-    start += 1
-    end -= 1
-
-print(my_list)
+print(reversed_list)
 # Output: [5, 4, 3, 2, 1]
 
 
