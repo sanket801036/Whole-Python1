@@ -109,6 +109,17 @@ print(i)#3
 # c= l.count(2)
 # print(c)#1
 
+l = [1, 2, 3, 4, 5, 2, 2]
+element_to_count = 2
+counter = 0
+
+for item in l:
+  if item == element_to_count:
+    counter += 1
+
+print(f"The element {element_to_count} appears {counter} times.")
+
+
 
 # # 20. How do you clear all elements from a list?
 # l = [1, 2, 3, 4, 5]
