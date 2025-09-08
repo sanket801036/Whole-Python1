@@ -121,12 +121,14 @@ l = [1, 2, 3, 4, 5, 2, 2]
 element_to_count = 2
 counter = 0
 
-for item in l:
-  if item == element_to_count:
-    counter += 1
+l = [1, 2, 3, 4, 5]
+r = []
 
-print(f"The element {element_to_count} appears {counter} times.")
+for i in l:
+    r = [i] + r
 
+print(r)
+# Output: [5, 4, 3, 2, 1]
 
 
 # # 20. How do you clear all elements from a list?
