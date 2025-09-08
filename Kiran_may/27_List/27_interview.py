@@ -94,6 +94,14 @@ l = [1, 2, 3, 4, 5]
 l.reverse()
 print(l)#[5, 4, 3, 2, 1]
 
+my_list = [1, 2, 3, 4, 5]
+reversed_list = []
+for i in range(len(my_list) - 1, -1, -1):
+    reversed_list.append(my_list[i])
+print(reversed_list)
+# Output: [5, 4, 3, 2, 1]
+
+
 # # 17. How do you insert an element at a specific index in a list?
 l = [1, 2, 3, 4, 5]
 l.insert(2, 20)
