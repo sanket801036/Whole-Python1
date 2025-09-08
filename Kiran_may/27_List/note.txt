@@ -1,71 +1,237 @@
+
+1. What are strings in Python?
+In Python, strings are sequences of characters enclosed in quotes (single, double, or triple). Strings are immutable, meaning they cannot be changed once created.
 2. How do you reverse a string in Python?
+Method 1: Using Slicing
+You can reverse a string by slicing it:
 s = "hello"
 r = s[::-1]
 # Output: "olleh"
 
+Method 2: Without using a function
+You can reverse a string by iterating through it in reverse order and building a new string.
+s = "hello"
+r = ""
+for i in s:
+    r = i + r
+# Output: "olleh"
+
 3. How can you check if a string is a palindrome?
+A palindrome reads the same forwards and backward. You can compare the string to its reverse.
+Method 1: Using a function and slicing
 def p(s):
     return s == s[::-1]
 # Example: p("madam") returns True
 
-4. Explain the difference between split() and join() in Python.
- * split() divides a string into a list:
-   t = "apple,banana,orange"
-r = t.split(",")  # Output: ['apple', 'banana', 'orange']
+Method 2: Without using a function
+You can use a loop to compare characters from the beginning and end of the string.
+s = "madam"
+is_p = True
+start = 0
+end = len(s) - 1
 
- * join() combines a list of strings:
-   f = ['apple', 'banana', 'orange']
-r = ", ".join(f)  # Output: "apple, banana, orange"
+while start < end:
+    if s[start] != s[end]:
+        is_p = False
+        break
+    start += 1
+    end -= 1
+# is_p will be True
+
+4. Explain the difference between split() and join() in Python.
+ * split() divides a string into a list based on a specified delimiter:
+<!-- end list -->
+t = "apple,banana,orange"
+r = t.split(",")
+# Output: ['apple', 'banana', 'orange']
+
+ * join() combines a list of strings into a single string, using a specified separator:
+<!-- end list -->
+f = ['apple', 'banana', 'orange']
+r = ", ".join(f)
+# Output: "apple, banana, orange"
 
 5. How do you find all occurrences of a substring in a string?
+Method 1: Using a loop
 t = "hello world, hello universe"
 o = [i for i in range(len(t)) if t.startswith("hello", i)]
 # Output: [0, 13]
 
+Method 2: Without using a function
+You can manually search for the substring by iterating and checking.
+t = "hello world, hello universe"
+s = "hello"
+o = []
+i = 0
+while i < len(t):
+    if t[i:i+len(s)] == s:
+        o.append(i)
+    i += 1
+# Output: [0, 13]
+
 6. How do you remove leading and trailing whitespaces from a string?
+Method 1: Using the strip() method
 t = "   hello   "
-s = t.strip()  # Output: "hello"
+s = t.strip()
+# Output: "hello"
+
+Method 2: Without using a function
+You can iterate and build a new string without the whitespace.
+t = "   hello   "
+s = ""
+i = 0
+j = len(t) - 1
+
+while i < len(t) and t[i] == ' ':
+    i += 1
+while j >= 0 and t[j] == ' ':
+    j -= 1
+
+if i <= j:
+    s = t[i:j+1]
+# Output: "hello"
 
 7. How can you count the occurrences of each character in a string?
+Method 1: Using the Counter class
 from collections import Counter
 t = "hello"
 c = Counter(t)
 # Output: Counter({'h': 1, 'e': 1, 'l': 2, 'o': 1})
 
+Method 2: Without using a function
+You can use a dictionary to store the counts.
+t = "hello"
+c = {}
+for i in t:
+    if i in c:
+        c[i] += 1
+    else:
+        c[i] = 1
+# Output: {'h': 1, 'e': 1, 'l': 2, 'o': 1}
+
 8. What is string interpolation, and how can you use it in Python?
+String interpolation is inserting values into a string. Python provides multiple ways.
+Method 1: Using f-strings
 n = "Alice"
 a = 30
 g = f"My name is {n} and I am {a} years old."
 
+Method 2: Without using a function
+You can use simple concatenation.
+n = "Alice"
+a = "30"
+g = "My name is " + n + " and I am " + a + " years old."
+
 9. How do you replace a substring within a string?
+Method 1: Using the replace() method
 t = "Hello world"
-n = t.replace("world", "Python")  # Output: "Hello Python"
+n = t.replace("world", "Python")
+# Output: "Hello Python"
+
+Method 2: Without using a function
+You can build a new string by iterating and replacing parts.
+t = "Hello world"
+o = "world"
+n = "Python"
+r = ""
+i = 0
+while i < len(t):
+    if t[i:i+len(o)] == o:
+        r += n
+        i += len(o)
+    else:
+        r += t[i]
+        i += 1
+# Output: "Hello Python"
 
 10. How can you check if a string contains only digits?
+Method 1: Using the isdigit() method
 t = "12345"
-d = t.isdigit()  # Output: True
+d = t.isdigit()
+# Output: True
+
+Method 2: Without using a function
+You can iterate and check each character.
+t = "12345"
+d = True
+for c in t:
+    if not ('0' <= c <= '9'):
+        d = False
+        break
+# d will be True
 
 11. What are raw strings in Python?
-r = r"C:\Users\name"  # No need to escape backslashes
+Raw strings (prefixed with r) treat backslashes as literal characters, which is useful for regular expressions.
+r = r"C:\Users\name"
 
 12. How can you capitalize each word in a string?
+Method 1: Using the title() method
 t = "hello world"
-c = t.title()  # Output: "Hello World"
+c = t.title()
+# Output: "Hello World"
+
+Method 2: Without using a function
+You can iterate through the string and capitalize the first letter of each word.
+t = "hello world"
+c = ""
+capitalize_next = True
+for char in t:
+    if char.isalpha():
+        if capitalize_next:
+            c += char.upper()
+            capitalize_next = False
+        else:
+            c += char
+    else:
+        c += char
+        capitalize_next = True
+# Output: "Hello World"
 
 13. How do you format strings in Python using the .format() method?
+You can insert values into placeholders marked by {}.
 t = "My name is {} and I am {} years old.".format("Alice", 30)
 
 14. Explain startswith() and endswith() methods.
+These methods check if a string starts or ends with a particular substring.
 t = "hello world"
 s = t.startswith("hello")  # True
 e = t.endswith("world")  # True
 
 15. How can you find the length of a string?
+Method 1: Using the len() function
 t = "hello"
-l = len(t)  # Output: 5
+l = len(t)
+# Output: 5
+
+Method 2: Without using a function
+You can use a loop and a counter to find the length.
+t = "hello"
+l = 0
+for _ in t:
+    l += 1
+# Output: 5
 
 16. How do you convert a string to lowercase or uppercase?
+Method 1: Using lower() and upper() methods
 t = "Hello"
-l = t.lower()  # Output: "hello"
-u = t.upper()  # Output: "HELLO"
+l = t.lower()
+u = t.upper()
+# Output: "hello" and "HELLO"
+
+Method 2: Without using a function
+You can use character codes (ASCII values) to convert.
+t = "Hello"
+l = ""
+u = ""
+for c in t:
+    if 'A' <= c <= 'Z':
+        l += chr(ord(c) + 32)
+        u += c
+    elif 'a' <= c <= 'z':
+        u += chr(ord(c) - 32)
+        l += c
+    else:
+        l += c
+        u += c
+# l will be "hello", u will be "HELLO"
 
