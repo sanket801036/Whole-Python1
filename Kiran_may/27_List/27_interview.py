@@ -179,6 +179,25 @@ r = [l[i] for i in range(len(l)-1, -1, -1)]
 print(r)  # Output: [5, 4, 3, 2, 1]
 
 
+my_list = [1, 2, 3, 4, 5]
+start = 0
+end = len(my_list) - 1
+
+while start < end:
+    # Swap the elements
+    my_list[start], my_list[end] = my_list[end], my_list[start]
+    
+    # Move the pointers
+    start += 1
+    end -= 1
+
+print(my_list)
+# Output: [5, 4, 3, 2, 1]
+
+
+
+
+
 # 18. How do you remove and return an element from a list?
 l = [1, 2, 3, 4, 5]
 i= l.pop(2)
