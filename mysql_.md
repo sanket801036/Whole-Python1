@@ -1,5 +1,5 @@
 -- Employees Table
-
+```sql
 use interview
 CREATE TABLE employees (
     employee_id INT PRIMARY KEY,
@@ -105,20 +105,21 @@ INSERT INTO order_details VALUES
 (1004, 14, 25, 20),
 (1005, 10, 2, 900);
 
+```
 ## Practice Database Schema
 ## Interview Questions with Answers
 ### Aggregate Functions
 
 -- **Q1: Write a query to find the total number of employees in each department and their average salary.**
 
-
+```sql
 SELECT d.department_name, 
        COUNT(e.employee_id) as employee_count,
        AVG(e.salary) as avg_salary
 FROM departments d
 LEFT JOIN employees e ON d.department_id = e.department_id
 GROUP BY d.department_id, d.department_name;
-
+```
 
 **Q2: Find departments where the average salary is greater than $50,000.**
 
