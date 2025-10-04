@@ -270,15 +270,285 @@ FROM orders
 WHERE ship_date IS NOT NULL;
 ```
 
-This comprehensive setup allows practice of all intermediate SQL concepts including aggregate functions, various types of joins, data combination operations, and complex queries that are commonly asked in interviews. The database schema is designed to interconnect multiple tables, enabling realistic practice scenarios that mirror real-world database structures.[2][4][1]
+Below are the answers for each question along with which concepts are used. Notes are in Hinglish for revision ease.
 
-[1](https://upesonline.ac.in/blog/advanced-sql-interview-questions)
-[2](https://codesignal.com/blog/interview-prep/28-sql-interview-questions-and-answers-from-beginner-to-senior-level/)
-[3](https://www.interviewbit.com/sql-interview-questions/)
-[4](https://www.geeksforgeeks.org/sql/sql-interview-questions/)
-[5](https://www.youtube.com/watch?v=oX5Y26O5dBE)
-[6](https://datalemur.com/blog/advanced-sql-interview-questions)
-[7](https://roadmap.sh/questions/sql-queries)
+***
 
+1. **Show the youngest and oldest student's details**
+```sql
+SELECT * FROM students WHERE age = (SELECT MIN(age) FROM students)
+UNION
+SELECT * FROM students WHERE age = (SELECT MAX(age) FROM students);
+```
+*Concepts: MIN/MAX (Aggregate), Subquery, UNION*
 
+***
+
+2. **Count of students in each city**
+```sql
+SELECT city, COUNT(*) AS student_count
+FROM students
+GROUP BY city;
+```
+*Concepts: GROUP BY, COUNT (Aggregation)*
+
+***
+
+3. **Students not from 'Mumbai' and not from 'Delhi'**
+```sql
+SELECT * FROM students
+WHERE city NOT IN ('Mumbai', 'Delhi');
+```
+*Concepts: WHERE, NOT IN (Filtering)*
+
+***
+
+4. **Students with no fees or fees below average**
+```sql
+SELECT * FROM students
+WHERE fees IS NULL
+   OR fees < (SELECT AVG(fees) FROM students);
+```
+*Concepts: WHERE, IS NULL, Subquery, AVG (Aggregate)*
+
+***
+
+5. **City not null & name starts with 'A'**
+```sql
+SELECT * FROM students
+WHERE city IS NOT NULL AND first_name LIKE 'A%';
+```
+*Concepts: WHERE, IS NOT NULL, LIKE (Pattern Matching)*
+
+***
+
+6. **Top 3 oldest students; show full names & ages**
+```sql
+SELECT CONCAT(first_name, ' ', last_name) AS full_name, age
+FROM students
+ORDER BY age DESC
+LIMIT 3;
+```
+*Concepts: ORDER BY, DESC, LIMIT, CONCAT (String)*
+
+***
+
+7. **Sort by grade descending, then age ascending**
+```sql
+SELECT * FROM students
+ORDER BY grade DESC, age ASC;
+```
+*Concepts: ORDER BY, Multiple Columns, DESC/ASC (Sorting)*
+
+***
+
+8. **Two cities with most students**
+```sql
+SELECT city, COUNT(*) AS student_count
+FROM students
+GROUP BY city
+ORDER BY student_count DESC
+LIMIT 2;
+```
+*Concepts: GROUP BY, COUNT, ORDER BY, LIMIT*
+
+***
+
+9. **Last names with exactly five letters**
+```sql
+SELECT * FROM students
+WHERE LENGTH(last_name) = 5;
+-- OR
+SELECT * FROM students
+WHERE last_name LIKE '_____';
+```
+*Concepts: LENGTH/String Functions, LIKE (Pattern Matching)*
+
+***
+
+10. **First name with 'e' as second letter**
+```sql
+SELECT * FROM students
+WHERE first_name LIKE '_e%';
+```
+*Concepts: LIKE (Pattern Matching)*
+
+***
+
+11. **Cities starting with 'B', 'P', or 'D'**
+```sql
+SELECT * FROM students
+WHERE city LIKE 'B%' OR city LIKE 'P%' OR city LIKE 'D%';
+```
+*Concepts: WHERE, LIKE (Multiple Patterns)*
+
+***
+
+12. **Students grade not 'A' or 'C'**
+```sql
+SELECT * FROM students
+WHERE grade NOT IN ('A', 'C');
+```
+*Concepts: WHERE, NOT IN (Filtering)*
+
+***
+
+13. **Ages 18-21 excluding grade 'B'**
+```sql
+SELECT * FROM students
+WHERE age BETWEEN 18 AND 21 AND grade <> 'B';
+```
+*Concepts: BETWEEN, AND, <> (Filtering)*
+
+***
+
+14. **NULL in city OR fees**
+```sql
+SELECT * FROM students
+WHERE city IS NULL OR fees IS NULL;
+```
+*Concepts: WHERE, IS NULL*
+
+***
+
+15. **Fees not null, multiple of 5000 or max fee**
+```sql
+SELECT * FROM students
+WHERE fees IS NOT NULL
+  AND (fees % 5000 = 0 OR fees = (SELECT MAX(fees) FROM students));
+```
+*Concepts: Modulo (%), Subquery, MAX, IS NOT NULL*
+
+***
+
+16. **First name = last name**
+```sql
+SELECT * FROM students
+WHERE first_name = last_name;
+```
+*Concepts: WHERE, Comparison/String Functions*
+
+***
+
+17. **Students in each grade including zero count**
+```sql
+SELECT g.grade, COUNT(s.student_id) AS student_count
+FROM (SELECT DISTINCT grade FROM students) g
+LEFT JOIN students s ON g.grade = s.grade
+GROUP BY g.grade;
+```
+*Concepts: LEFT JOIN, GROUP BY, COUNT, Subquery*
+
+***
+
+18. **Sum and avg fees per city**
+```sql
+SELECT city, SUM(fees) AS total_fees, AVG(fees) AS avg_fees
+FROM students
+GROUP BY city;
+```
+*Concepts: GROUP BY, SUM, AVG*
+
+***
+
+19. **City(s) with largest average fee**
+```sql
+SELECT city
+FROM students
+GROUP BY city
+HAVING AVG(fees) = (
+    SELECT MAX(avg_fees) FROM (
+        SELECT AVG(fees) AS avg_fees FROM students GROUP BY city
+    ) x
+);
+```
+*Concepts: GROUP BY, HAVING, Nested Subquery, MAX, AVG*
+
+***
+
+20. **Grade with smallest total fees**
+```sql
+SELECT grade
+FROM students
+GROUP BY grade
+HAVING SUM(fees) = (
+    SELECT MIN(total_fees) FROM (
+        SELECT SUM(fees) AS total_fees
+        FROM students
+        GROUP BY grade
+    ) y
+);
+```
+*Concepts: GROUP BY, HAVING, SUM, MIN, Subquery*
+
+***
+
+21. **Names with no vowels (a, e, i, o, u)**
+```sql
+SELECT * FROM students
+WHERE CONCAT(first_name, last_name) NOT LIKE '%a%'
+  AND CONCAT(first_name, last_name) NOT LIKE '%e%'
+  AND CONCAT(first_name, last_name) NOT LIKE '%i%'
+  AND CONCAT(first_name, last_name) NOT LIKE '%o%'
+  AND CONCAT(first_name, last_name) NOT LIKE '%u%';
+```
+*Concepts: WHERE, CONCAT, NOT LIKE (Multiple Patterns)*
+
+***
+
+22. **Cities with more than one student**
+```sql
+SELECT * FROM students
+WHERE city IN (
+    SELECT city FROM students GROUP BY city HAVING COUNT(*) > 1
+);
+```
+*Concepts: IN, GROUP BY, HAVING*
+
+***
+
+23. **Students sharing both grade and age**
+```sql
+SELECT * FROM students s1
+WHERE EXISTS (
+    SELECT 1 FROM students s2
+    WHERE s1.student_id <> s2.student_id
+      AND s1.grade = s2.grade
+      AND s1.age = s2.age
+);
+```
+*Concepts: EXISTS, Self-Join/Correlated Subquery*
+
+***
+
+24. **For each grade, highest fee & student name(s)**
+```sql
+SELECT grade,
+       fees AS max_fee,
+       CONCAT(first_name, ' ', last_name) AS full_name
+FROM students
+WHERE (grade, fees) IN (
+    SELECT grade, MAX(fees) FROM students GROUP BY grade
+);
+```
+*Concepts: GROUP BY, MAX, Tuple Filtering, CONCAT*
+
+***
+
+25. **All students in one comma-separated row**
+```sql
+SELECT GROUP_CONCAT(CONCAT(first_name, ' ', last_name)) AS all_students
+FROM students;
+-- (Syntax may change: MySQL uses GROUP_CONCAT, others STRING_AGG or LISTAGG)
+```
+*Concepts: Aggregate function, String functions*
+
+***
+
+**Notes:**  
+- Har query ke aage concept likha hua hai – revise karte time point-wise yaad rakhna.  
+- Subquery, Aggregation, Joins, Filtering, Pattern Matching – yeh sab interview me repeat hote hain!
+- Practice/modify queries khud se bhi kar sakte ho taaki syntax confidence aaye.
+
+**Best of luck! Coding interview crack karne ke liye yeh notes + queries ka use regular revision ke liye karo!**
 
