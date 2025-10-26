@@ -7,6 +7,38 @@
 - [ ] **Dockerfile** is created and configured for the project
 - [ ] **Dockerfile** is also created and configured for **Jenkins**
 
+
+### Code Versioning Kya Hai?
+
+**Code Versioning** ka seedha sa matlab hai aapke code mein kiye gaye har badlav (change) ka record rakhna. Iske liye hum **Git** ⏳ naam ke tool ka istemaal karte hain.
+
+**GitHub** ☁️ woh online platform (website) hai jahaan aap apne Git project (repository) ko store karte hain, taaki:
+1.  Aapka code online safe rahe.
+2.  Aapki team (ya aap khud) alag-alag computers se uspar kaam kar sakein.
+
+---
+
+### Aapke Checklist Wale Step Ka Matlab
+
+Aapki checklist mein likha hai: "Code versioning is properly set up using GitHub (repository pushed and updated)".
+
+Iska matlab hai ki pipeline shuru karne se pehle, aapko yeh pakka karna hai ki:
+
+1.  Aapke project ka **saara code** (jaise aapki Python files, `requirements.txt`, `Dockerfile`, aur `Jenkinsfile`) aapke local computer par hai.
+2.  Aapne `git add .`, `git commit`, aur `git push` commands ka istemaal karke uss **poore code ko GitHub repository par upload kar diya hai**.
+
+**Saral bhasha mein:** Aapka saara naya aur updated code aapke computer se nikal kar GitHub.com par pahunch jaana chahiye.
+
+---
+
+### Yeh Zaroori Kyun Hai?
+
+Yeh isliye zaroori hai kyunki aapka **Jenkins server 🤖 aapke laptop se code nahi lega**.
+
+Jab pipeline chalegi, toh Jenkins ka sabse pehla kaam hoga aapke **GitHub repository se connect karna** aur wahaan se saara code "checkout" (download) karna.
+
+Agar aapka code GitHub par "pushed" ya "updated" nahi hoga, toh Jenkins purana code utha lega (ya use kuch bhi nahi milega) aur aapki pipeline fail ho jaayegi.
+
 ## ==> 1. 🚀 Jenkins Setup for Deployment
 
 ### 1. Create Jenkins Setup Directory and Dockerfile
